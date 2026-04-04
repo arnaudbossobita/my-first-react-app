@@ -4,10 +4,12 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import Button from './components/Button'
+import Timer from './components/Timer'
+import { useState } from 'react'
 
 function App() {
   // const [count, setCount] = useState(0)
-
+  const [showTimer, setShowTimer] = useState<boolean>(true);
   return (
     <>
       <section id="center">
@@ -28,7 +30,12 @@ function App() {
         >
           Count is {count}
         </button> */}
-        <Button />
+        <Button title="Click me" />
+        {showTimer && <Timer />}
+        <button onClick={() => setShowTimer(!showTimer)}>
+          {showTimer ? 'Hide Timer' : 'Show Timer'}
+        </button>
+
       </section>
 
       <div className="ticks"></div>
