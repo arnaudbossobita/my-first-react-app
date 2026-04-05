@@ -6,10 +6,29 @@ import './App.css'
 import Button from './components/Button'
 import Timer from './components/Timer'
 import { useState } from 'react'
+import { useCounter } from './hooks/useCounter'
+import { useFetch } from './hooks/useFetch'
+
+const URL = 'https://randomuser.me/api/';
+
+interface User {
+  name: { first: string; last: string };
+  email: string;
+  picture: { large: string };
+}
+
+interface RandomUserResponse {
+  results: User[];
+}
 
 function App() {
   // const [count, setCount] = useState(0)
   const [showTimer, setShowTimer] = useState<boolean>(true);
+  const { count, increment, decrement, reset } = useCounter(10);
+  const { data, loading } = useFetch(URL);
+
+  const userData = data as RandomUserResponse | null;
+
   return (
     <>
       <section id="center">
@@ -35,6 +54,32 @@ function App() {
         <button onClick={() => setShowTimer(!showTimer)}>
           {showTimer ? 'Hide Timer' : 'Show Timer'}
         </button>
+
+        <hr />
+
+        <h1>{count}</h1>
+        <button onClick={increment}>Increment</button>
+        <button onClick={decrement}>Decrement</button>
+        <button onClick={reset}>Reset</button>
+
+        <hr />
+
+        {loading ? (
+          <p>Loading...</p>
+        ) : userData ? (
+          <div>
+            <h2>User Info</h2>
+            <p>Name: {userData.results[0].name.first} {userData.results[0].name.last}</p>
+            <p>Email: {userData.results[0].email}</p>
+            <img src={userData.results[0].picture.large} alt="User" />
+            <br />
+            <br />
+
+            <p>{JSON.stringify(userData, null, 2)}</p>
+          </div>
+        ) : (
+          <p>No data available</p>
+        )}
 
       </section>
 
