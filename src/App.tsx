@@ -2,6 +2,7 @@ import { useState, useReducer, useRef } from "react";
 import "./App.css";
 import type { Todo } from "./types";
 import { todosReducer } from "./reducers/todosReducer";
+import ListOfTodos from "./components/ListOfTodos";
 
 const defaultTodos: Todo[] = [
     {
@@ -67,11 +68,11 @@ function App(){
             }}
         />
         <button onClick={() => {handleAddTodo();}}>Add Todo</button>
-        {todos.map((todo) => (
-            <strong key={todo.id} style={{display: "block"}}>
-                {todo.id} - {todo.title} - {todo.description} - {todo.isDone ? "Done" : "Not Done"}
-            </strong>
-        ))}
+        <ListOfTodos todos={todos} />
+        <div>
+            <h1>Dashboard</h1>
+            <strong>Number of todos: {todos.length}</strong>
+        </div>
         </>
     )
 }

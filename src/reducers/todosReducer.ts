@@ -1,4 +1,4 @@
-import { type Todo, type Action } from '../types';
+import type {Todo, Action } from '../types';
 
 export function todosReducer(state: Todo[], action: Action): Todo[] {
         switch (action.type) {
