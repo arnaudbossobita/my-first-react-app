@@ -3,6 +3,7 @@ import "./App.css";
 import type { Todo } from "./types";
 import { todosReducer } from "./reducers/todosReducer";
 import ListOfTodos from "./components/ListOfTodos";
+import Images from "./components/Images";
 
 const defaultTodos: Todo[] = [
     {
@@ -57,6 +58,10 @@ function App(){
 
     return (
         <>
+        <div>
+            <h1 className="text-3xl font-bold underline animate-pulse ">Dashboard</h1>
+            <strong>Number of todos: {todos.length}</strong>
+        </div>
         <h1>TodoApp</h1>
         <input placeholder="Add a todo" 
             ref={newTodoInputRef}
@@ -69,10 +74,8 @@ function App(){
         />
         <button onClick={() => {handleAddTodo();}}>Add Todo</button>
         <ListOfTodos todos={todos} />
-        <div>
-            <h1>Dashboard</h1>
-            <strong>Number of todos: {todos.length}</strong>
-        </div>
+        < br/>
+        <Images/>
         </>
     )
 }
